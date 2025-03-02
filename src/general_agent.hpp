@@ -1,6 +1,7 @@
 # pragma once
 # include <iostream>
 # include <vector>
+# include <cmath>
 
 // ALL RETURNS MUST BE IN DECIMAL FORM e.g 0.05 for 5% NOT 1.05 or 5
 

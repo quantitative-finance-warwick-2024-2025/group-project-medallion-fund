@@ -2,9 +2,9 @@
 
 Agent::Agent(unsigned int m, unsigned int n)
 :
+current_period(0),
 M(m),
 N(n),
-current_period(0),
 past_bond_returns(N, 0.0),
 past_asset_prices(N, std::vector<double>(M, 0.0)),
 positions(N, std::vector<double>(M + 1, 0.0)),
