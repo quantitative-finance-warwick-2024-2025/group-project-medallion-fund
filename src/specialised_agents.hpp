@@ -4,7 +4,7 @@
 // Invests only in bonds
 class RiskHater : public Agent {
     public:
-        RiskHater(unsigned int m);
+        RiskHater(unsigned int m, unsigned int n);
         std::vector<double> initial_position();
         std::vector<double> update_position();
 };
@@ -12,7 +12,7 @@ class RiskHater : public Agent {
 // Invests equally in all assets
 class NaiveInvestor : public Agent {
     public:
-        NaiveInvestor(unsigned int m);
+        NaiveInvestor(unsigned int m, unsigned int n);
         std::vector<double> initial_position();
         std::vector<double> update_position();
 };
@@ -24,7 +24,7 @@ class MarkowitzSavvy : public Agent {
     private:
         unsigned int lookback;
     public:
-        MarkowitzSavvy(unsigned int m, unsigned int l);
+        MarkowitzSavvy(unsigned int m, unsigned int n, unsigned int l);
         std::vector<double> initial_position();
         std::vector<double> update_position();
 };

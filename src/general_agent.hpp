@@ -8,6 +8,7 @@ class Agent {
     protected:
         unsigned int current_period;
         unsigned int M; // Number of assets
+        unsigned int N; // Number of periods
 
         // Store previous information about bonds, past_bond_returns[i] = return from period i to period i + 1
         std::vector<double> past_bond_returns;
@@ -25,7 +26,7 @@ class Agent {
         std::vector<double> returns;
 
     public:
-        Agent(unsigned int m); // Constructor
+        Agent(unsigned int m, unsigned int n); // Constructor
         
 
 
@@ -52,8 +53,8 @@ class Agent {
 
 
         // Take in current prices and form initial position
-        virtual std::vector<double> initial_position();
+        virtual std::vector<double> initial_position() = 0;
 
         // Take in current prices and form initial position
-        virtual std::vector<double> update_position();
+        virtual std::vector<double> update_position() = 0;
 };

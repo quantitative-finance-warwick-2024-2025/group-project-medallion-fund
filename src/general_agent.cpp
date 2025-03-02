@@ -1,12 +1,22 @@
 # include "general_agent.hpp"
 
-Agent::Agent(unsigned int m) : M(m), current_period(0) {}
+Agent::Agent(unsigned int m, unsigned int n)
+:
+M(m),
+N(n),
+current_period(0),
+past_bond_returns(N, 0.0),
+past_asset_prices(N, std::vector<double>(M, 0.0)),
+positions(N, std::vector<double>(M + 1, 0.0)),
+wealth(N, 0.0),
+returns(N - 1, 0.0) {}
 
 double Agent::current_wealth() {
     return wealth[current_period];
 }
 
-double Agent::total_return(bool period_average = false, int time1 = 0, int time2 = -1) {
+// Defaults are defined in the header file
+double Agent::total_return(bool period_average, int time1, int time2) {
     if (time2 == -1) {
         time2 = current_period; // Default to current period
     }
@@ -34,6 +44,8 @@ double Agent::variance_return() {
         variance += pow(returns[i] - mean, 2);
     }
     variance /= (current_period - 1); // Adjusted sample variance
+
+    return variance;
 }
 
 double Agent::sharpe_ratio() {
