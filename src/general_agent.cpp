@@ -34,13 +34,13 @@ double Agent::variance_return() {
     }
 
     double mean = 0;
-    for (int i = 0; i < current_period; i++) {
+    for (unsigned int i = 0; i < current_period; i++) {
         mean += returns[i];
     }
     mean /= current_period;
 
     double variance = 0;
-    for (int i = 0; i < current_period; i++) {
+    for (unsigned int i = 0; i < current_period; i++) {
         variance += pow(returns[i] - mean, 2);
     }
     variance /= (current_period - 1); // Adjusted sample variance
@@ -54,7 +54,7 @@ double Agent::sharpe_ratio() {
     }
     
     double r = 1;
-    for (int i = 0; i < current_period - 1; i++) {
+    for (unsigned int i = 0; i < current_period - 1; i++) {
         r *= 1 + past_bond_returns[i];
     }
     r = pow(r, 1.0 / (current_period - 1)) - 1.0;
@@ -86,7 +86,7 @@ void Agent::next_step(double bond_return, std::vector<double> asset_prices) {
     double new_wealth = 0;
     new_wealth += positions[current_period - 1][0] * (1 + bond_return); // Bond return
 
-    for (int i = 1; i < M + 1; i++) {
+    for (unsigned int i = 1; i < M + 1; i++) {
         new_wealth += positions[current_period - 1][i] * asset_prices[i - 1]; // Asset return
     }
 
