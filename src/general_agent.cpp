@@ -65,7 +65,6 @@ double Agent::sharpe_ratio() {
 void Agent::setup(double bond_return, std::vector<double> asset_prices) {
     past_bond_returns[current_period] = bond_return;
     past_asset_prices[current_period] = asset_prices;
-    
     positions[current_period] = initial_position();
     wealth[current_period] = 1.0;
 }
