@@ -24,7 +24,7 @@ class Agent {
         std::vector<double> wealth;
         
         // Store returns of the agent at each period, returns[i] = return from period i to period i + 1
-        std::vector<double> returns;
+        std::vector<double> returns; 
 
     public:
         Agent(unsigned int m, unsigned int n); // Constructor

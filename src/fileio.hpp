@@ -5,7 +5,7 @@
 #include <tuple>
 
 
-class FileRead {
+class FileIO {
    
    public:
     static std::tuple<std::vector<std::string>, std::vector<std::vector<double>>> read(const std::string& filename);

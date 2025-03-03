@@ -1,8 +1,8 @@
-#include "fileread.hpp"
+#include "fileio.hpp"
 #include <fstream>
 #include <sstream>
 
-std::tuple<std::vector<std::string>, std::vector<std::vector<double>>> FileRead::read(const std::string& filename) {
+std::tuple<std::vector<std::string>, std::vector<std::vector<double>>> FileIO::read(const std::string& filename) {
     std::ifstream file(filename);
     if (!file.is_open()) {
         throw "Error opening file" ;
