@@ -37,11 +37,11 @@ class Agent {
         // Return the return up to now of the agent, period_average = true returns the geometric mean return per period
         double total_return(bool period_average = false, int time1 = 0, int time2 = -1);
 
-        // Return the variance of the returns of the agent
+        // Return the variance of the returns of the agent COULD MAKE THIS FOR SLICED TIME
         double variance_return();
 
         // Return the Sharpe ratio of the agent
-        double sharpe_ratio();
+        double sharpe_ratio(); // Watch out for division by zero
 
 
 

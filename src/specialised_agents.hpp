@@ -1,5 +1,6 @@
 # pragma once
 # include "general_agent.hpp"
+# include "matrix.hpp"
 
 // Invests only in bonds
 class RiskHater : public Agent {
@@ -20,11 +21,13 @@ class NaiveInvestor : public Agent {
 // Invests in assets based on Markowitz portfolio theory
 // Invest in bonds for first lookback periods and then use Markowitz portfolio theory
 // Will need to add a lot of extra variables to store the covariance matrix and expected returns
+// could add target returns
 class MarkowitzSavvy : public Agent {
     private:
         unsigned int lookback;
+        double target_return;
     public:
-        MarkowitzSavvy(unsigned int m, unsigned int n, unsigned int l);
+        MarkowitzSavvy(unsigned int m, unsigned int n, unsigned int l, double r);
         std::vector<double> initial_position();
         std::vector<double> update_position();
 };
