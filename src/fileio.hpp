@@ -14,5 +14,5 @@ class FileIO {
 /////COMMAND 
 /*
 std::string path = "/Users/akshayzine/Academics/Programming_Group_Project/matrix/Assets.csv"; 
- auto [assetnames, assetprices] = FileRead::read(path);
+ auto [assetnames, assetprices] = FileIO::read(path);
 */
