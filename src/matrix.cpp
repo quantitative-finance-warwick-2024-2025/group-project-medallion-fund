@@ -38,6 +38,23 @@ double& Matrix::operator()(int i, int j) {
     return content[i][j];
 }
 
+std::vector<double> Matrix::getrow(int r) const {
+    if (r < 0 || r >= rows)
+        throw "Row index not in range";
+    return content[r];
+}
+
+std::vector<double> Matrix::getcol(int c) const {
+    if (c < 0 || c >= cols)
+        throw "Column index out of range";
+    
+    std::vector<double> column;
+    for (int i = 0; i < rows; i++) {
+        column.push_back(content[i][c]);
+    }
+    return column;
+}
+
 // Matrix multiplication.
 Matrix Matrix::operator*(const Matrix& other) const {
     if (cols != other.rows)
