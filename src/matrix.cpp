@@ -159,6 +159,20 @@ Matrix Matrix::slicerows(int s, int e) const {
     return sliced_mat;
 }
 
+// crate submatrix using column slicing 
+Matrix Matrix::slicecols(int s, int e) const {
+    
+    int ncols = e - s ;
+    Matrix sliced_mat(rows, ncols);
+
+    for (int r = 0; r < rows; r++) {   //no <= to make it similar to python
+        for (int c = s; c < e; c++) {
+            sliced_mat(r, c-s) = (*this)(r, c);
+        }
+    }
+    return sliced_mat;
+}
+
 
 // << print the matrix.
 std::ostream& operator<<(std::ostream& os, const Matrix& matrix) {

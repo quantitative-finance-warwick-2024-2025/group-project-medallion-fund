@@ -27,7 +27,7 @@ public:
     Matrix inverse() const;                       // Inverse 
     Matrix returns() const;    //Return of given price matrixCalculator
     Matrix slicerows(int s, int e) const;   // crate submatrix from matrix m from (start)sth row to (end)(e-1)th row just like python
-
+    Matrix Matrix::slicecols(int s, int e) const;
     // printing matrix (optional)
     friend std::ostream& operator<<(std::ostream& os, const Matrix& matrix);
 };
