@@ -31,7 +31,8 @@ std::vector<double> NaiveInvestor::update_position() {
 
 ////////////////
 
-MarkowitzSavvy::MarkowitzSavvy(unsigned int m, unsigned int n, unsigned int l) : Agent(m, n), lookback(l) {}
+MarkowitzSavvy::MarkowitzSavvy(unsigned int m, unsigned int n, unsigned int l, double r) : Agent(m, n), lookback(l),
+target_return(r) {}
 
 // THE FUNCTIONS BELOW ARE PLACEHOLDERS AND ARE INCORRECT, I JUST NEEDED TO WRITE SOMETHING OR THE PROGRAM WOULDN'T COMPILE
 std::vector<double> MarkowitzSavvy::initial_position() {
@@ -62,7 +63,11 @@ std::vector<double> MarkowitzSavvy::update_position() {
     Matrix B = ones.T() * inverse_covariance * mean_matrix;
     Matrix C = mean_matrix.T() * inverse_covariance * mean_matrix;
 
-    
+    double r = past_bond_returns[current_period];
+
+    Matrix pos_matrix = (target_return - r) / (A(0,0) * pow(r, 2) - 2 * B(0,0) * r + C(0,0)) * inverse_covariance * (mean_matrix + -1 * (r * ones));
+
+    position = pos_matrix.get_content()[0];
 
     return position;
 }

@@ -35,5 +35,6 @@ public:
 
     // Friend function for Scalar × Matrix (to support 2.0 * A)
     friend Matrix operator*(double scalar, const Matrix& mat);
+    Matrix operator+(const Matrix& other) const;
+    std::vector<std::vector<double>> get_content() const;
 };
-
