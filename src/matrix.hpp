@@ -30,5 +30,10 @@ public:
     Matrix slicecols(int s, int e) const;
     // printing matrix (optional)
     friend std::ostream& operator<<(std::ostream& os, const Matrix& matrix);
+
+    Matrix operator*(double scalar) const;       // Matrix × Scalar
+
+    // Friend function for Scalar × Matrix (to support 2.0 * A)
+    friend Matrix operator*(double scalar, const Matrix& mat);
 };
 
