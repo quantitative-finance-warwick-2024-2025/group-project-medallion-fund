@@ -33,7 +33,7 @@ class MarkowitzSavvy : public Agent {
 
 // Functions useful for the MarkowitzSavvy class
 // Convert to returns matrix
-std::vector<std::vector<double>> returns_matrix(std::vector<std::vector<double>>& prices, unsigned int M, unsigned int current_period, unsigned int lookback,
+std::vector<std::vector<double>> returns_matrix(std::vector<std::vector<double>>& prices, unsigned int current_period, unsigned int lookback,
     unsigned int num_assets);
 
 // Calculate the mean of returns matrix
