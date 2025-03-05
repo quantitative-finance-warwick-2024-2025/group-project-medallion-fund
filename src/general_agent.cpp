@@ -94,6 +94,7 @@ void Agent::next_step(double bond_return, std::vector<double> asset_prices) {
         new_wealth = 0.0;
         wealth[current_period] = 0.0;
         returns[current_period - 1] = 0.0;
+        positions[current_period] = positions[current_period - 1]; // Not necessary but just in case
         return;
     }
 
