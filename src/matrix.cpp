@@ -81,6 +81,40 @@ Matrix Matrix::operator*(const Matrix &other) const
     return prod;
 }
 
+// Matrix addition.
+Matrix Matrix::operator+(const Matrix &other) const
+{
+    if (rows != other.rows || cols != other.cols)
+        throw "Matrix dimensions not compatible for addition";
+
+    Matrix add(rows, cols);
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            add(i, j) = (*this)(i, j) + other(i, j);
+        }
+    }
+    return add;
+}
+
+// Matrix subtraction.
+Matrix Matrix::operator-(const Matrix &other) const
+{
+    if (rows != other.rows || cols != other.cols)
+        throw "Matrix dimensions not compatible for subtraction";
+
+    Matrix sub(rows, cols);
+    for (int i = 0; i < rows; i++)
+    {
+        for (int j = 0; j < cols; j++)
+        {
+            sub(i, j) = (*this)(i, j) - other(i, j);
+        }
+    }
+    return sub;
+}
+
 // Transpose of the matrix.
 Matrix Matrix::T() const
 {

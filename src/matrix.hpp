@@ -25,6 +25,8 @@ public:
 
     // Operations
     Matrix operator*(const Matrix &other) const; // Matrix multiplication
+    Matrix operator+(const Matrix &other) const; // Matrix addition
+    Matrix operator-(const Matrix &other) const; // Matrix subtraction
     Matrix T() const;                            // Transpose matrix
     Matrix inverse() const;                      // Inverse
     Matrix returns() const;                      // Return of given price matrixCalculator
