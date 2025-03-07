@@ -84,16 +84,10 @@ void Agent::next_step(double bond_return, std::vector<double> asset_prices) {
 
     double new_wealth = 0;
 
-    double current_bond_value = 1.0;
-
-    for (unsigned int i = 0; i < current_period; i++) {
-        current_bond_value *= 1 + past_bond_returns[i];
-    }
-
-    new_wealth += positions[current_period - 1][0] * current_bond_value; // Bond return
+    new_wealth += positions[current_period - 1][0] * wealth[current_period - 1] * (1 + past_bond_returns[current_period - 1]); // Bond return
 
     for (unsigned int i = 1; i < M + 1; i++) {
-        new_wealth += positions[current_period - 1][i] * asset_prices[i - 1]; // Asset return
+        new_wealth += positions[current_period - 1][i] * wealth[current_period - 1] * asset_prices[i - 1] / past_asset_prices[current_period - 1][i - 1]; // Asset return
     }
 
     // If wealth is negative then agent is bankrupt and out of the simulation
