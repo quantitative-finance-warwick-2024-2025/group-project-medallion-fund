@@ -110,3 +110,15 @@ void Agent::next_step(double bond_return, std::vector<double> asset_prices) {
 
     positions[current_period] = update_position();
 }
+
+std::vector<std::vector<double>> Agent::get_positions() const {
+    return positions;
+}
+
+std::vector<double> Agent::get_wealth() const {
+    return wealth;
+}
+
+std::vector<double> Agent::get_returns() const {
+    return returns;
+}
