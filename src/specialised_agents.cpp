@@ -42,9 +42,10 @@ std::vector<double> MarkowitzSavvy::initial_position() {
 }
 
 std::vector<double> MarkowitzSavvy::update_position() {
-    std::vector<double> position(M + 1, 0.0);
     
     if (current_period < lookback) {
+        std::vector<double> position(M + 1, 0.0);
+    
         position[0] = 1.0;
         return position;
     }
@@ -65,9 +66,26 @@ std::vector<double> MarkowitzSavvy::update_position() {
 
     double r = past_bond_returns[current_period];
 
+    if (target_return <= r) {
+        double temp_target_return = r;
+    } else {
+        double temp_target_return = target_return;
+    }
+
     Matrix pos_matrix = (target_return - r) / (A(0,0) * pow(r, 2) - 2 * B(0,0) * r + C(0,0)) * inverse_covariance * (mean_matrix + -1 * (r * ones));
 
-    position = pos_matrix.get_content()[0];
+    std::vector<double> asset_position = pos_matrix.get_content()[0]; // M vector of Markowitz portfolio weights
+
+    double bond_position = 1.0; // Bond position is the remaining wealth
+    for (unsigned int i = 0; i < M; i++) {
+        bond_position -= asset_position[i];
+    }
+
+    std::vector<double> position(M + 1, 0.0); // Create actual position vector
+    position[0] = bond_position;
+    for (unsigned int i = 0; i < M; i++) {
+        position[i + 1] = asset_position[i];
+    }
 
     return position;
 }

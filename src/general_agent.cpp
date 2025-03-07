@@ -83,7 +83,14 @@ void Agent::next_step(double bond_return, std::vector<double> asset_prices) {
     }
 
     double new_wealth = 0;
-    new_wealth += positions[current_period - 1][0] * (1 + bond_return); // Bond return
+
+    double current_bond_value = 1.0;
+
+    for (unsigned int i = 0; i < current_period; i++) {
+        current_bond_value *= 1 + past_bond_returns[i];
+    }
+
+    new_wealth += positions[current_period - 1][0] * current_bond_value; // Bond return
 
     for (unsigned int i = 1; i < M + 1; i++) {
         new_wealth += positions[current_period - 1][i] * asset_prices[i - 1]; // Asset return
