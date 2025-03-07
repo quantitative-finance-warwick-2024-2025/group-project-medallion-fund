@@ -252,6 +252,26 @@ Matrix Matrix::slicecols(int s, int e) const
     return sliced_mat;
 }
 
+// Multiply matrix by a scalar (Matrix * Scalar)
+Matrix Matrix::operator*(double scalar) const {
+    Matrix result(rows, cols);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            result(i, j) = (*this)(i, j) * scalar;
+        }
+    }
+    return result;
+}
+
+// Multiply scalar by a matrix (Scalar * Matrix) - Friend function
+Matrix operator*(double scalar, const Matrix& mat) {
+    return mat * scalar;  // Use the existing Matrix * Scalar operator
+}
+
+// Function to get the content of the matrix
+std::vector<std::vector<double>> Matrix::get_content() const {
+    return content;
+}
 // << print the matrix.
 std::ostream &operator<<(std::ostream &os, const Matrix &matrix)
 {
