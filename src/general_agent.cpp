@@ -5,11 +5,11 @@ Agent::Agent(unsigned int m, unsigned int n)
 current_period(0),
 M(m),
 N(n),
-past_bond_returns(N, 0.0),
-past_asset_prices(N, std::vector<double>(M, 0.0)),
-positions(N, std::vector<double>(M + 1, 0.0)),
-wealth(N, 0.0),
-returns(N - 1, 0.0) {}
+past_bond_returns(N + 1, 0.0),
+past_asset_prices(N + 1, std::vector<double>(M, 0.0)),
+positions(N + 1, std::vector<double>(M + 1, 0.0)),
+wealth(N + 1, 0.0),
+returns(N, 0.0) {}
 
 double Agent::current_wealth() {
     return wealth[current_period];

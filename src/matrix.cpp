@@ -99,8 +99,8 @@ Matrix Matrix::inverse() const {
             if (std::abs(augmented(r, i)) > std::abs(augmented(pivot, i)))
                 pivot = r;
         }
-        if (std::abs(augmented(pivot, i)) < 1e-9)
-            throw "Matrix is singular and cannot be inverted.";
+        if (std::abs(augmented(pivot, i)) < 1e-50)
+            throw "Matrix is singular and cannot be inverted. Perhaps increase lookback?";
 
         if (i != pivot)
             std::swap(augmented.content[i], augmented.content[pivot]);
