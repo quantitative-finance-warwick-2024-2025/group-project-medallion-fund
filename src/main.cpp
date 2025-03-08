@@ -7,7 +7,7 @@
 int main()
 {
 	FileIO file;
-	std::string path = "/Users/akshayzine/Academics/Programming_Group_Project/Akshay_Branch/group-project-medallion-fund/Assets.csv";
+	std::string path = "C:/Users/Jagraj/Coding/IB9JH/group-project-medallion-fund/Assets.csv";
 	auto [assetnames, assetvals] = file.read(path);
 
 	// price matrix
@@ -31,12 +31,12 @@ int main()
 
 	RiskHater riskhater(M, N);
 	NaiveInvestor naiveinvestor(M, N);
-	unsigned int l = 10; // lookback for markowitz
-	double target_return_1 = 0.1;
+	unsigned int l = 365; // lookback for markowitz
+	double target_return_1 = 0.0005;
 	MarkowitzSavvy markowitzsavvy1(M, N, l, target_return_1);
-	double target_return_2 = 0.2;
+	double target_return_2 = 0.001;
 	MarkowitzSavvy markowitzsavvy2(M, N, l, target_return_2);
-	double target_return_3 = 0.3;
+	double target_return_3 = 0.005;
 	MarkowitzSavvy markowitzsavvy3(M, N, l, target_return_3);
 
 	// setup/initialisation
@@ -99,7 +99,7 @@ int main()
 	}
 
 	// Specify the output file path.
-	std::string outputPath = "/Users/akshayzine/Academics/Programming_Group_Project/Akshay_Branch/group-project-medallion-fund/Strategy_Output.csv";
+	std::string outputPath = "C:/Users/Jagraj/Coding/IB9JH/group-project-medallion-fund/Strategy_Output.csv";
 
 	// Write the CSV file.
 	file.write(outputPath, header, data);
