@@ -68,7 +68,7 @@ double Agent::sharpe_ratio()
     {
         r *= 1 + past_bond_returns[i];
     }
-    r = pow(r, 1.0 / (current_period - 1)) - 1.0;
+    r = pow(r, 1.0 / current_period) - 1.0;
 
     return (total_return(true) - r) / sqrt(variance_return());
 }
@@ -98,12 +98,10 @@ void Agent::next_step(double bond_return, std::vector<double> asset_prices)
     }
 
     double new_wealth = 0;
-    double prev_wealth = wealth[current_period - 1];
-    new_wealth += prev_wealth * positions[current_period - 1][0] * (1 + bond_return); // Bond return
-
-    for (unsigned int i = 1; i < M + 1; i++)
-    {
-        new_wealth += prev_wealth * positions[current_period - 1][i] * asset_prices[i - 1] / past_asset_prices[current_period - 1][i - 1]; // Asset return
+  
+    new_wealth += positions[current_period - 1][0] * wealth[current_period - 1] * (1 + past_bond_returns[current_period - 1]); // Bond return
+    for (unsigned int i = 1; i < M + 1; i++) {
+        new_wealth += positions[current_period - 1][i] * wealth[current_period - 1] * asset_prices[i - 1] / past_asset_prices[current_period - 1][i - 1]; // Asset return
     }
 
     // If wealth is negative then agent is bankrupt and out of the simulation
@@ -111,8 +109,9 @@ void Agent::next_step(double bond_return, std::vector<double> asset_prices)
     {
         new_wealth = 0.0;
         wealth[current_period] = 0.0;
-        returns[current_period - 1] = 0.0;
+        returns[current_period - 1] = 0.0; 
         cumulative_returns[current_period - 1] = wealth[current_period] / wealth[0] - 1;
+        positions[current_period] = positions[current_period - 1]; // Not necessary but just in case
         return;
     }
 
@@ -132,4 +131,12 @@ std::vector<double> Agent::getwealth() const
 std::vector<double> Agent::getcumulativereturns() const
 {
     return cumulative_returns;
+}
+  
+std::vector<std::vector<double>> Agent::get_positions() const {
+    return positions;
+}
+
+std::vector<double> Agent::get_returns() const {
+    return returns;
 }

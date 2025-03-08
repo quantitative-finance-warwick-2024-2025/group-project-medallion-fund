@@ -1,3 +1,6 @@
 add_executable(my_test ${SRC_FILES} my_test.cpp)
+add_executable(markowitz ${SRC_FILES} test_markowitz.cpp)
 target_include_directories(my_test PUBLIC ${CMAKE_SOURCE_DIR}/extern/catch2 ${CMAKE_SOURCE_DIR}/src)
+target_include_directories(markowitz PUBLIC ${CMAKE_SOURCE_DIR}/extern/catch2 ${CMAKE_SOURCE_DIR}/src)
 add_test(NAME my_test COMMAND my_test)
+add_test(NAME markowitz COMMAND markowitz)

@@ -57,9 +57,11 @@ public:
     // Take in current prices and form initial position
     virtual std::vector<double> update_position() = 0;
 
-    // get wealth
-    std::vector<double> getwealth() const;
-
-    // get cumulative returns .
+  
+  
+    // Functions for testing
+    std::vector<std::vector<double>> get_positions() const;
+    std::vector<double> get_wealth() const;
+    std::vector<double> get_returns() const;
     std::vector<double> getcumulativereturns() const;
 };

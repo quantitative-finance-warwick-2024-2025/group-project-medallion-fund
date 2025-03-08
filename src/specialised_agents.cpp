@@ -42,10 +42,9 @@ std::vector<double> MarkowitzSavvy::initial_position() {
 }
 
 std::vector<double> MarkowitzSavvy::update_position() {
-    
-    if (current_period < lookback) {
+    // If not enough data to calculate Markowitz portfolio, invest in bonds
+    if (current_period < lookback - 1 || lookback < 3) {
         std::vector<double> position(M + 1, 0.0);
-    
         position[0] = 1.0;
         return position;
     }
@@ -58,11 +57,13 @@ std::vector<double> MarkowitzSavvy::update_position() {
     Matrix covariance_matrix(covariance);
 
     Matrix inverse_covariance = covariance_matrix.inverse();
-    Matrix ones(M, 1);
+  
+    std::vector<std::vector<double>> ones_vector(1, std::vector<double>(M, 1.0)); 
+    Matrix ones(ones_vector);
 
-    Matrix A = ones.T() * inverse_covariance * ones;
-    Matrix B = ones.T() * inverse_covariance * mean_matrix;
-    Matrix C = mean_matrix.T() * inverse_covariance * mean_matrix;
+    Matrix A = ones * inverse_covariance * ones.T();
+    Matrix B = ones * inverse_covariance * mean_matrix.T();
+    Matrix C = mean_matrix * inverse_covariance * mean_matrix.T();
 
     double r = past_bond_returns[current_period];
 
@@ -73,10 +74,14 @@ std::vector<double> MarkowitzSavvy::update_position() {
     } else {
         temp_target_return = target_return;
     }
+  
+    double factor = (temp_target_return - r) / (A(0,0) * pow(r, 2) - 2 * B(0,0) * r + C(0,0));
+    Matrix pos_matrix = factor * (inverse_covariance * (mean_matrix + (-r) * ones).T());
 
-    Matrix pos_matrix = (temp_target_return - r) / (A(0,0) * pow(r, 2) - 2 * B(0,0) * r + C(0,0)) * inverse_covariance * (mean_matrix + -1 * (r * ones));
-
-    std::vector<double> asset_position = pos_matrix.get_content()[0]; // M vector of Markowitz portfolio weights
+    std::vector<double> asset_position(M, 0.0);
+    for (unsigned int i = 0; i < M; i++) {
+        asset_position[i] = pos_matrix(i,0);
+    }
 
     double bond_position = 1.0; // Bond position is the remaining wealth
     for (unsigned int i = 0; i < M; i++) {
@@ -94,26 +99,26 @@ std::vector<double> MarkowitzSavvy::update_position() {
 
 std::vector<std::vector<double>> returns_matrix(std::vector<std::vector<double>>& prices, unsigned int current_period,
     unsigned int lookback, unsigned int num_assets) {
-    std::vector<std::vector<double>> returns(lookback, std::vector<double>(num_assets, 0.0));
+    std::vector<std::vector<double>> returns(lookback - 1, std::vector<double>(num_assets, 0.0));
 
-    for (unsigned int i = 1; i <= lookback; i++) {
+    for (unsigned int i = 1; i < lookback; i++) {
         for (unsigned int j = 0; j < num_assets; j++) {
-            returns[i][j] = prices[current_period - lookback + i][j] / prices[current_period - lookback + i - 1][j] - 1.0;
+            returns[i - 1][j] = prices[current_period - lookback + 1 + i][j] / prices[current_period - lookback + i][j] - 1.0;
         }
     }
     return returns;
 }
 
 std::vector<double> mean_returns(std::vector<std::vector<double>>& returns) {
-    unsigned int lookback = returns.size();
+    unsigned int lookbackM1 = returns.size(); // Lookback - 1
     unsigned int num_assets = returns[0].size();
 
     std::vector<double> mean(num_assets, 0.0);
     for (unsigned int i = 0; i < num_assets; i++) {
-        for (unsigned int j = 0; j < lookback; j++) {
+        for (unsigned int j = 0; j < lookbackM1; j++) {
             mean[i] += returns[j][i];
         }
-        mean[i] /= lookback;
+        mean[i] /= lookbackM1;
     }
     return mean;
 }

@@ -165,8 +165,8 @@ Matrix Matrix::inverse() const
             if (std::abs(augmented(r, i)) > std::abs(augmented(pivot, i)))
                 pivot = r;
         }
-        if (std::abs(augmented(pivot, i)) < 1e-9)
-            throw "Matrix is singular and cannot be inverted.";
+        if (std::abs(augmented(pivot, i)) < 1e-50)
+            throw "Matrix is singular and cannot be inverted. Perhaps increase lookback?";
 
         if (i != pivot)
             std::swap(augmented.content[i], augmented.content[pivot]);
@@ -284,4 +284,38 @@ std::ostream &operator<<(std::ostream &os, const Matrix &matrix)
         os << "\n";
     }
     return os;
+}
+
+// Multiply matrix by a scalar (Matrix * Scalar)
+Matrix Matrix::operator*(double scalar) const {
+    Matrix result(rows, cols);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            result(i, j) = (*this)(i, j) * scalar;
+        }
+    }
+    return result;
+}
+
+// Multiply scalar by a matrix (Scalar * Matrix) - Friend function
+Matrix operator*(double scalar, const Matrix& mat) {
+    return mat * scalar;  // Use the existing Matrix * Scalar operator
+}
+
+Matrix Matrix::operator+(const Matrix& other) const {
+    if (rows != other.rows || cols != other.cols)
+        throw std::invalid_argument("Matrix dimensions must match for addition.");
+
+    Matrix result(rows, cols);
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            result(i, j) = (*this)(i, j) + other(i, j);
+        }
+    }
+    return result;
+}
+
+// Function to get the content of the matrix
+std::vector<std::vector<double>> Matrix::get_content() const {
+    return content;
 }

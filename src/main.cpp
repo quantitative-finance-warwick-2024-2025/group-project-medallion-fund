@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include "fileio.hpp"
 #include "matrix.hpp"
