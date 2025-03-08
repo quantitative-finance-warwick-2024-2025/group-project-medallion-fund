@@ -57,7 +57,7 @@ double Agent::sharpe_ratio() {
     for (unsigned int i = 0; i < current_period - 1; i++) {
         r *= 1 + past_bond_returns[i];
     }
-    r = pow(r, 1.0 / (current_period - 1)) - 1.0;
+    r = pow(r, 1.0 / current_period) - 1.0;
 
     return (total_return(true) - r) / sqrt(variance_return());
 }
