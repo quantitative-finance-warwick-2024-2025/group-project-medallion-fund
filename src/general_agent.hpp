@@ -61,7 +61,7 @@ public:
   
     // Functions for testing
     std::vector<std::vector<double>> get_positions() const;
-    std::vector<double> get_wealth() const;
+    std::vector<double> getwealth() const;
     std::vector<double> get_returns() const;
     std::vector<double> getcumulativereturns() const;
 };

@@ -11,7 +11,7 @@ std::vector<double> stock2 = {50, 49, 49, 55, 56, 68, 71, 82, 59};
 
 TEST_CASE("MarkowitzSavvy single asset", "[tests]")
 {   
-    MarkowitzSavvy marko_man_single_asset(1, 6, 3, 0.03);
+    MarkowitzSavvy marko_man_single_asset(1, 7, 3, 0.03);
 
     // Testing that the initial position is correct
     marko_man_single_asset.setup(bonds[0], {stock1[0]});
@@ -51,7 +51,7 @@ TEST_CASE("MarkowitzSavvy single asset", "[tests]")
 
 TEST_CASE("MarkowitzSavvy two assets", "[tests]")
 {   
-    MarkowitzSavvy marko_man_two_assets(2, 8, 6, 0.03);
+    MarkowitzSavvy marko_man_two_assets(2, 9, 6, 0.03);
     
     // Testing that the initial position is correct
     marko_man_two_assets.setup(bonds[0], {stock1[0], stock2[0]});

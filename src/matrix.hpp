@@ -39,6 +39,4 @@ public:
 
     // printing matrix (optional)
     friend std::ostream& operator<<(std::ostream& os, const Matrix& matrix);
-
-    std::vector<std::vector<double>> get_content() const;
 };
