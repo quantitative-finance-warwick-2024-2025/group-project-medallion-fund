@@ -42,11 +42,9 @@ std::vector<double> MarkowitzSavvy::initial_position() {
 }
 
 std::vector<double> MarkowitzSavvy::update_position() {
-    
     // If not enough data to calculate Markowitz portfolio, invest in bonds
-    if (current_period < lookback - 1|| lookback < 3) {
+    if (current_period < lookback - 1 || lookback < 3) {
         std::vector<double> position(M + 1, 0.0);
-    
         position[0] = 1.0;
         return position;
     }
@@ -59,6 +57,7 @@ std::vector<double> MarkowitzSavvy::update_position() {
     Matrix covariance_matrix(covariance);
 
     Matrix inverse_covariance = covariance_matrix.inverse();
+  
     std::vector<std::vector<double>> ones_vector(1, std::vector<double>(M, 1.0)); 
     Matrix ones(ones_vector);
 
@@ -75,6 +74,7 @@ std::vector<double> MarkowitzSavvy::update_position() {
     } else {
         temp_target_return = target_return;
     }
+  
     double factor = (temp_target_return - r) / (A(0,0) * pow(r, 2) - 2 * B(0,0) * r + C(0,0));
     Matrix pos_matrix = factor * (inverse_covariance * (mean_matrix + (-r) * ones).T());
 
