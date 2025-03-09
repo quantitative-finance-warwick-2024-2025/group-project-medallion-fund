@@ -64,7 +64,7 @@ double Agent::sharpe_ratio()
     }
 
     double r = 1;
-    for (unsigned int i = 0; i < current_period - 1; i++)
+    for (unsigned int i = 0; i < current_period; i++)
     {
         r *= 1 + past_bond_returns[i];
     }
