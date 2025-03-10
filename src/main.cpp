@@ -31,12 +31,12 @@ int main()
 
 	RiskHater riskhater(M, N);
 	NaiveInvestor naiveinvestor(M, N);
-	unsigned int l = 365; // lookback for markowitz
-	double target_return_1 = 0.0005;
+	unsigned int l = 180; // lookback for markowitz
+	double target_return_1 = 0.001;
 	MarkowitzSavvy markowitzsavvy1(M, N, l, target_return_1);
-	double target_return_2 = 0.001;
+	double target_return_2 = 0.005;
 	MarkowitzSavvy markowitzsavvy2(M, N, l, target_return_2);
-	double target_return_3 = 0.005;
+	double target_return_3 = 0.05; // May not use this as it results in messy plots
 	MarkowitzSavvy markowitzsavvy3(M, N, l, target_return_3);
 
 	// setup/initialisation
