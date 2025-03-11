@@ -6,14 +6,14 @@ RiskHater::RiskHater(unsigned int m, unsigned int n) : Agent(m, n) {}
 std::vector<double> RiskHater::initial_position()
 {
     std::vector<double> position(M + 1, 0.0);
-    position[0] = 1.0;
+    position[0] = 1.0;  //invests 100% in bonds
     return position;
 }
 
 std::vector<double> RiskHater::update_position()
 {
     std::vector<double> position(M + 1, 0.0);
-    position[0] = 1.0;
+    position[0] = 1.0;  //doesnt change position
     return position;
 }
 
@@ -38,7 +38,6 @@ std::vector<double> NaiveInvestor::update_position()
 MarkowitzSavvy::MarkowitzSavvy(unsigned int m, unsigned int n, unsigned int l, double r) : Agent(m, n), lookback(l),
                                                                                            target_return(r) {}
 
-// THE FUNCTIONS BELOW ARE PLACEHOLDERS AND ARE INCORRECT, I JUST NEEDED TO WRITE SOMETHING OR THE PROGRAM WOULDN'T COMPILE
 std::vector<double> MarkowitzSavvy::initial_position()
 {
     std::vector<double> position(M + 1, 0.0);
