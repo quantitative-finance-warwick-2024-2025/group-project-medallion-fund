@@ -1,18 +1,18 @@
-# pragma once
+#pragma once
 #include <vector>
 #include <iostream>
 #include <string>
 #include <tuple>
 
+class FileIO
+{
 
-class FileIO {
-   
-   public:
-    static std::tuple<std::vector<std::string>, std::vector<std::vector<double>>> read(const std::string& filename);
+public:
+    static std::tuple<std::vector<std::string>, std::vector<std::vector<double>>> read(const std::string &filename);
 };
 
-/////COMMAND 
+/////COMMAND
 /*
-std::string path = "/Users/akshayzine/Academics/Programming_Group_Project/matrix/Assets.csv"; 
+std::string path = "/Users/akshayzine/Academics/Programming_Group_Project/matrix/Assets.csv";
  auto [assetnames, assetprices] = FileIO::read(path);
 */

@@ -2,10 +2,12 @@
 #include <fstream>
 #include <sstream>
 
-std::tuple<std::vector<std::string>, std::vector<std::vector<double>>> FileIO::read(const std::string& filename) {
+std::tuple<std::vector<std::string>, std::vector<std::vector<double>>> FileIO::read(const std::string &filename)
+{
     std::ifstream file(filename);
-    if (!file.is_open()) {
-        throw "Error opening file" ;
+    if (!file.is_open())
+    {
+        throw "Error opening file";
     }
 
     std::string line;
@@ -13,15 +15,18 @@ std::tuple<std::vector<std::string>, std::vector<std::vector<double>>> FileIO::r
     std::vector<std::string> firstline;
     std::istringstream header(line);
     std::string token;
-    while (std::getline(header, token, ',')) {
+    while (std::getline(header, token, ','))
+    {
         firstline.push_back(token);
     }
 
     std::vector<std::vector<double>> mat;
-    while (std::getline(file, line)) {
+    while (std::getline(file, line))
+    {
         std::istringstream lineStream(line);
         std::vector<double> row;
-        while (std::getline(lineStream, token, ',')) {
+        while (std::getline(lineStream, token, ','))
+        {
             row.push_back(std::stod(token));
         }
         mat.push_back(row);
