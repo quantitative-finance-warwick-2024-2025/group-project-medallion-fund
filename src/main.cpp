@@ -3,12 +3,15 @@
 #include "matrix.hpp"
 #include "general_agent.hpp"
 #include "specialised_agents.hpp"
+#include<filesystem>
 
 int main()
 {
 	FileIO file;
-	std::string path = "C:/Users/Jagraj/Coding/IB9JH/group-project-medallion-fund/Assets.csv";
-	auto [assetnames, assetvals] = file.read(path);
+	const std::filesystem::path root = PROJECT_ROOT_DIR;
+	std::filesystem::path input_csv = root / "datafiles" / "Assets.csv";
+    std::filesystem::path output_csv = root / "datafiles" / "Strategy_Output.csv";
+    auto [assetnames, assetvals] = file.read(input_csv);
 
 	// price matrix
 	Matrix asset_vals(assetvals);
@@ -98,11 +101,9 @@ int main()
 						markowitzsavvy3_wealth[i], markowitzsavvy3_creturns[i - 1]});
 	}
 
-	// Specify the output file path.
-	std::string outputPath = "C:/Users/Jagraj/Coding/IB9JH/group-project-medallion-fund/Strategy_Output.csv";
 
 	// Write the CSV file.
-	file.write(outputPath, header, data);
+	file.write(output_csv, header, data);
 
 	// the final metrics for each agent.
 	std::cout << "RiskHater Metrics:" << std::endl;
