@@ -11,7 +11,7 @@ int main()
 	const std::filesystem::path root = PROJECT_ROOT_DIR;
 	std::filesystem::path input_csv = root / "datafiles" / "Assets.csv";
     std::filesystem::path output_csv = root / "datafiles" / "Strategy_Output.csv";
-    auto [assetnames, assetvals] = file.read(input_csv);
+    auto [assetnames, assetvals] = file.read(input_csv.string());
 
 	// price matrix
 	Matrix asset_vals(assetvals);
@@ -103,7 +103,7 @@ int main()
 
 
 	// Write the CSV file.
-	file.write(output_csv, header, data);
+	file.write(output_csv.string(), header, data);
 
 	// the final metrics for each agent.
 	std::cout << "RiskHater Metrics:" << std::endl;
