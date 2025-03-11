@@ -1,5 +1,6 @@
 #include "general_agent.hpp"
 
+// Constructs an Agent with M risky assets and N total periods.
 Agent::Agent(unsigned int m, unsigned int n)
     : current_period(0),
       M(m),
@@ -60,7 +61,7 @@ double Agent::sharpe_ratio()
 {
     if (current_period <= 1)
     {
-        return 0.0; // If bad input, return 0
+        return 0.0; // If bad input (not enough data), return 0
     }
 
     double r = 1;
@@ -73,6 +74,7 @@ double Agent::sharpe_ratio()
     return (total_return(true) - r) / sqrt(variance_return());
 }
 
+//Set required paramaters for the first period
 void Agent::setup(double bond_return, std::vector<double> asset_prices)
 {
     past_bond_returns[current_period] = bond_return;
@@ -98,9 +100,10 @@ void Agent::next_step(double bond_return, std::vector<double> asset_prices)
     }
 
     double new_wealth = 0;
-  
+
     new_wealth += positions[current_period - 1][0] * wealth[current_period - 1] * (1 + past_bond_returns[current_period - 1]); // Bond return
-    for (unsigned int i = 1; i < M + 1; i++) {
+    for (unsigned int i = 1; i < M + 1; i++)
+    {
         new_wealth += positions[current_period - 1][i] * wealth[current_period - 1] * asset_prices[i - 1] / past_asset_prices[current_period - 1][i - 1]; // Asset return
     }
 
@@ -109,7 +112,7 @@ void Agent::next_step(double bond_return, std::vector<double> asset_prices)
     {
         new_wealth = 0.0;
         wealth[current_period] = 0.0;
-        returns[current_period - 1] = 0.0; 
+        returns[current_period - 1] = 0.0;
         cumulative_returns[current_period - 1] = wealth[current_period] / wealth[0] - 1;
         positions[current_period] = positions[current_period - 1]; // Not necessary but just in case
         return;
@@ -132,11 +135,13 @@ std::vector<double> Agent::getcumulativereturns() const
 {
     return cumulative_returns;
 }
-  
-std::vector<std::vector<double>> Agent::get_positions() const {
+
+std::vector<std::vector<double>> Agent::get_positions() const
+{
     return positions;
 }
 
-std::vector<double> Agent::get_returns() const {
+std::vector<double> Agent::get_returns() const
+{
     return returns;
 }
