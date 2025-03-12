@@ -17,7 +17,6 @@ Matrix::Matrix(int r, int c) : rows(r), cols(c)
 // Constructor: a matrix from a 2D vector.
 Matrix::Matrix(const std::vector<std::vector<double>> &values) : content(values), rows(values.size()), cols(values[0].size())
 {
-    // maybe check for dimensions are accurate
 }
 
 // Access for dimensions.
@@ -39,6 +38,7 @@ double &Matrix::operator()(int i, int j)
     return content[i][j];
 }
 
+// Access row of a matrix
 std::vector<double> Matrix::getrow(int r) const
 {
     if (r < 0 || r >= rows)
@@ -46,6 +46,7 @@ std::vector<double> Matrix::getrow(int r) const
     return content[r];
 }
 
+// Access row of a matrix
 std::vector<double> Matrix::getcol(int c) const
 {
     if (c < 0 || c >= cols)
@@ -129,7 +130,7 @@ Matrix Matrix::T() const
     return transpose;
 }
 
-// Inverse - Gauss-Jordan elimination.
+// Inverse using Gauss-Jordan elimination.
 Matrix Matrix::inverse() const
 {
     if (rows != cols)
@@ -243,7 +244,7 @@ Matrix Matrix::slicecols(int s, int e) const
     Matrix sliced_mat(rows, ncols);
 
     for (int r = 0; r < rows; r++)
-    { // no <= to make it similar to python
+    {
         for (int c = s; c < e; c++)
         {
             sliced_mat(r, c - s) = (*this)(r, c);
@@ -266,7 +267,7 @@ Matrix Matrix::operator*(double scalar) const
     return result;
 }
 
-// Multiply scalar by a matrix (Scalar * Matrix) - Friend function
+// Multiply scalar by a matrix (Scalar * Matrix)
 Matrix operator*(double scalar, const Matrix &mat)
 {
     return mat * scalar; // Use the existing Matrix * Scalar operator
@@ -276,17 +277,4 @@ Matrix operator*(double scalar, const Matrix &mat)
 std::vector<std::vector<double>> Matrix::get_content() const
 {
     return content;
-}
-// << print the matrix.
-std::ostream &operator<<(std::ostream &os, const Matrix &matrix)
-{
-    for (int i = 0; i < matrix.rows; i++)
-    {
-        for (int j = 0; j < matrix.cols; j++)
-        {
-            os << matrix.content[i][j] << " ";
-        }
-        os << "\n";
-    }
-    return os;
 }

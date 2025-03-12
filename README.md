@@ -1,45 +1,39 @@
-[![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=18481855)
-# IB9JHO Group Project
-This is a blank template for your group to implement your project in the IB9JHO environment.
+# Comparative Analysis of Trading Strategies
 
-# Using CMake to build your main program:
-When you add source files to the project which you want compiled and linked to your program, you need to add them to the CMakeLists.txt file at the root of the project. If you are getting LNK errors it is usually because you forgot to add one of your .cpp files
+This project implements an agent-based simulation framework in C++ to evaluate and compare various trading strategies using an object-oriented design. It integrates custom matrix operations and file I/O routines to simulate different investment approaches in a dynamic market environment (2018-2024).
 
-For example:
-```
-set(SRC_FILES ${CMAKE_SOURCE_DIR}/src/my_class1.cpp ${CMAKE_SOURCE_DIR}/src/my_class2.cpp)
-add_executable(my_program ${SRC_FILES} ${CMAKE_SOURCE_DIR}/src/main.cpp)
+## Overview
 
-```
+- **Investment Agents:**  
+  The framework is built around a base class `general agent` that provides common functionality to all strategies. `specialised agents` then inherit from this base class to implement distinct investment strategies:   
+  - `RiskHater:` Invests entirely in bonds for a low-risk, fixed-income approach.  
+  - `NaiveInvestor:` Equally allocates funds across bonds and risky assets, providing a simple investment strategy.  
+  - `MarkowitzSavvy:` Employs a Markowitz-inspired portfolio optimization technique using historical asset returns and covariance analysis to maximize risk-adjusted performance, with two variants targeting daily returns of `0.001 and 0.005`.
 
-Will create an executable called my_program by compiling my_class1.cpp, my_class2.cpp and main.cpp. Any cpp files you want to add to the project can be set in the first line.
-To keep things simple, make sure you put all source and header files in the /src directory.
+- **Matrix Operations:**  
+  A custom `Matrix` class implements fundamental linear algebra operations—such as multiplication, inversion, transposition, and slicing—that are essential for efficient Markowitz portfolio optimization and seamless data flow management.
 
-Note: Some functions from the standard math library may require that you link your executable explictly. This is usually only a problem on linux and is fixed by adding 
-```
-target_link_libraries(my_program m)
-```
-after add_executable
+- **Data Handling:**  
+  File I/O routines handle reading asset data from CSV files and writing simulation outputs—such as wealth evolution and cumulative returns—for each strategy. Asset data is read from the `Asset.CSV` file located in the `/src/datafiles` folder, which is generated using the DataGeneration Python file included in the source.
 
-# Using CMake to add tests:
 
-There is a seperate CMakeLists.txt file in the /tests directory for adding tests. For each test you would like to add to the testing suite you 
-will add a cpp file which includes catch2 (see tests/my_test.cpp for an example).
+- **Testing and Build:**  
+  Comprehensive tests—covering matrix operations, general agent functionality, and Markowitz optimization—ensure that each module behaves as expected. The project is built using CMake with provided guidelines, streamlining both compilation and testing.
 
-Then in the CMakeLists.txt file:
-```
-add_executable(my_test ${SRC_FILES} my_test.cpp)
-target_include_directories(my_test PUBLIC ${CMAKE_SOURCE_DIR}/extern/catch2 ${CMAKE_SOURCE_DIR}/src)
-add_test(NAME my_test COMMAND my_test)
-```
 
-will create a test called my_test which will run the my_test.cpp file. Note that SRC_FILES is inherited from the main CMakeLists.txt file so in the case above your test has all the same source files as the main program.
 
-# Using Git to manage your group:
-It is suggested that each group member creates their own branch to prevent clashes. Each group member can create branches in github by clicking
-'branches' when you are on the <> code tab of the repository. Each branch is independent from the main branch which will eventually contain your final project.
+## Usage
 
-You can add the changes from your personal branch to the main branch using pull requests. You can create these in github, go to the pull requests tab and click new pull request. Then select the branch you want to merge into the main branch. It is recommended to then have the strongest programmer in the team review these pull requests and check your code can safely be merged without breaking anything.
+- To run the main program, execute **my_program** after building it with CMake.
+- The program is implemented in **main.cpp** and performs the following tasks:
+  - Reads market data from CSV files.
+  - Instantiates multiple specialized agents ( RiskHater, NaiveInvestor, MarkowitzSavvy1, MarkowitzSavvy2).
+  - Runs a simulation for each agent over multiple time periods.
+  - Outputs performance metrics to the console and generates a CSV file (**Strategy_Output.csv**) with detailed results,enabling clear analysis of each investment strategy under controlled conditions.
 
-# Submission
-To submit, push your final project to your group's repository on GitHub on the main branch. Extract the contents of the repository to a zip file and submit it via my.wbs.
+- After running the main program, the provided Python Plotting file in the source folder was used for analysis and visualization.
+
+
+## Submission Context
+
+This repository forms the basis of our detailed report, "Comparative Analysis of Trading Strategies Using an Object-Oriented C++ Framework." It offers a high-level introduction to the simulation framework and its core components, with detailed discussions in the report.

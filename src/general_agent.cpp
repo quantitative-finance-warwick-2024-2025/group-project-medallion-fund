@@ -74,7 +74,7 @@ double Agent::sharpe_ratio()
     return (total_return(true) - r) / sqrt(variance_return());
 }
 
-//Set required paramaters for the first period
+// Set required paramaters for the first period
 void Agent::setup(double bond_return, std::vector<double> asset_prices)
 {
     past_bond_returns[current_period] = bond_return;

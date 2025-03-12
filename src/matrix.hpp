@@ -20,9 +20,9 @@ public:
     int NCols() const;
     double &operator()(int i, int j);
     double operator()(int i, int j) const;
-    std::vector<double> getrow(int row) const; // Access row of a matrix in vector format
-    std::vector<double> getcol(int col) const; // Access column of a matrix
-    std::vector<std::vector<double>> get_content() const;
+    std::vector<double> getrow(int row) const;            // Access row of a matrix in vector format
+    std::vector<double> getcol(int col) const;            // Access column of a matrix
+    std::vector<std::vector<double>> get_content() const; // Acess contents of matrix
 
     // Operations
     Matrix operator*(const Matrix &other) const; // Matrix multiplication
@@ -35,7 +35,4 @@ public:
     Matrix slicecols(int s, int e) const;        // crate submatrix from matrix m from (start)sth column to (end)(e-1)th column just like python
     Matrix operator*(double scalar) const;       // scalar multiplication
     friend Matrix operator*(double scalar, const Matrix &mat);
-
-    // printing matrix (optional)
-    friend std::ostream &operator<<(std::ostream &os, const Matrix &matrix);
 };

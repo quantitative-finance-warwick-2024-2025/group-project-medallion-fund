@@ -3,15 +3,15 @@
 #include "matrix.hpp"
 #include "general_agent.hpp"
 #include "specialised_agents.hpp"
-#include<filesystem>
+#include <filesystem>
 
 int main()
 {
 	FileIO file;
 	const std::filesystem::path root = PROJECT_ROOT_DIR;
 	std::filesystem::path input_csv = root / "datafiles" / "Assets.csv";
-    std::filesystem::path output_csv = root / "datafiles" / "Strategy_Output.csv";
-    auto [assetnames, assetvals] = file.read(input_csv.string());
+	std::filesystem::path output_csv = root / "datafiles" / "Strategy_Output.csv";
+	auto [assetnames, assetvals] = file.read(input_csv.string());
 
 	// price matrix
 	Matrix asset_vals(assetvals);
@@ -64,7 +64,6 @@ int main()
 		markowitzsavvy1.next_step(bond_ret, asset_price_r);
 		markowitzsavvy2.next_step(bond_ret, asset_price_r);
 		markowitzsavvy3.next_step(bond_ret, asset_price_r);
-
 	}
 	// header for csv file
 	std::vector<std::string> header = {"riskhater_wealth", "riskhater_creturns",
@@ -85,7 +84,6 @@ int main()
 	std::vector<double> markowitzsavvy3_wealth = markowitzsavvy3.getwealth();
 	std::vector<double> markowitzsavvy3_creturns = markowitzsavvy3.getcumulativereturns();
 
-
 	// create data to feed write file
 	std::vector<std::vector<double>> data;
 
@@ -101,40 +99,42 @@ int main()
 						markowitzsavvy3_wealth[i], markowitzsavvy3_creturns[i - 1]});
 	}
 
-
 	// Write the CSV file.
 	file.write(output_csv.string(), header, data);
 
 	// the final metrics for each agent.
 	std::cout << "RiskHater Metrics:" << std::endl;
 	std::cout << "RH: Final Wealth: " << riskhater.current_wealth() << std::endl;
-	std::cout << "RH: Cumulative Return: " << riskhater_creturns[N - 2] << std::endl; // last index of N-1 length vector
+	std::cout << "RH: Cumulative Return: " << riskhater_creturns[N - 2] << std::endl;
 	std::cout << "RH: Variance: " << riskhater.variance_return() << std::endl;
 	std::cout << "RH: Sharpe Ratio: " << riskhater.sharpe_ratio() << std::endl;
 	std::cout << std::endl;
 
 	std::cout << "NaiveInvestor Final Metrics:" << std::endl;
 	std::cout << "NI: Final Wealth: " << naiveinvestor.current_wealth() << std::endl;
-	std::cout << "NI: Cumulative Return: " << naive_creturns[N - 2] << std::endl; // last index of N-1 length vector
+	std::cout << "NI: Cumulative Return: " << naive_creturns[N - 2] << std::endl;
 	std::cout << "NI: Variance: " << naiveinvestor.variance_return() << std::endl;
 	std::cout << "NI: Sharpe Ratio: " << naiveinvestor.sharpe_ratio() << std::endl;
 	std::cout << std::endl;
 
-	std::cout << "MarkowitzSavvy1 with target return " << target_return_1<< " Metrics:" << std::endl;
+	std::cout << "MarkowitzSavvy1 with target return " << target_return_1 << " Metrics:" << std::endl;
 	std::cout << "MS1: Final Wealth: " << markowitzsavvy1.current_wealth() << std::endl;
-	std::cout << "MS1: Cumulative Return: " << markowitzsavvy1_creturns[N - 2] << std::endl; // last index of N-1 length vector
+	std::cout << "MS1: Cumulative Return: " << markowitzsavvy1_creturns[N - 2] << std::endl;
 	std::cout << "MS1: Variance: " << markowitzsavvy1.variance_return() << std::endl;
 	std::cout << "MS1: Sharpe Ratio: " << markowitzsavvy1.sharpe_ratio() << std::endl;
+	std::cout << std::endl;
 
-	std::cout << "MarkowitzSavvy2 with target return " << target_return_2<< " Metrics:" << std::endl;
+	std::cout << "MarkowitzSavvy2 with target return " << target_return_2 << " Metrics:" << std::endl;
 	std::cout << "MS2: Final Wealth: " << markowitzsavvy2.current_wealth() << std::endl;
-	std::cout << "MS2: Cumulative Return: " << markowitzsavvy2_creturns[N - 2] << std::endl; // last index of N-1 length vector
+	std::cout << "MS2: Cumulative Return: " << markowitzsavvy2_creturns[N - 2] << std::endl;
 	std::cout << "MS2: Variance: " << markowitzsavvy2.variance_return() << std::endl;
 	std::cout << "MS2: Sharpe Ratio: " << markowitzsavvy2.sharpe_ratio() << std::endl;
+	std::cout << std::endl;
 
-	std::cout << "MarkowitzSavvy3 with target return " << target_return_3<< " Metrics:" << std::endl;
+	std::cout << "MarkowitzSavvy3 with target return " << target_return_3 << " Metrics:" << std::endl;
 	std::cout << "MS3: Final Wealth: " << markowitzsavvy3.current_wealth() << std::endl;
-	std::cout << "MS3: Cumulative Return: " << markowitzsavvy3_creturns[N - 2] << std::endl; // last index of N-1 length vector
+	std::cout << "MS3: Cumulative Return: " << markowitzsavvy3_creturns[N - 2] << std::endl;
 	std::cout << "MS3: Variance: " << markowitzsavvy3.variance_return() << std::endl;
 	std::cout << "MS3: Sharpe Ratio: " << markowitzsavvy3.sharpe_ratio() << std::endl;
+	std::cout << std::endl;
 }

@@ -6,14 +6,14 @@ RiskHater::RiskHater(unsigned int m, unsigned int n) : Agent(m, n) {}
 std::vector<double> RiskHater::initial_position()
 {
     std::vector<double> position(M + 1, 0.0);
-    position[0] = 1.0;  //invests 100% in bonds
+    position[0] = 1.0; // invests 100% in bonds
     return position;
 }
 
 std::vector<double> RiskHater::update_position()
 {
     std::vector<double> position(M + 1, 0.0);
-    position[0] = 1.0;  //doesnt change position
+    position[0] = 1.0; // doesnt change position
     return position;
 }
 
